@@ -1,6 +1,5 @@
 # Requirements
-
-You will be implementing a dynamic Python invoker REST service. The service will have the following features:
+Implementing a dynamic Python invoker REST service. The service will have the following features:
 
 ## 1. Python Script Uploader
 
