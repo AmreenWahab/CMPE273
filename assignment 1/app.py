@@ -31,7 +31,6 @@ def post():
     file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
     db.put(key.encode(), file.filename.encode());
     response ={'script-id':key}
-   # response= json.dumps(response)
     return jsonify(response), 201
 
 if __name__ == '__main__':
