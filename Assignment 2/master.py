@@ -17,7 +17,6 @@ _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 class ReplicatorServicer(replicator_pb2.ReplicatorServicer):
     def __init__(self):
         self.db = rocksdb.DB("masterdb.db", rocksdb.Options(create_if_missing=True))
-        #self.db = rocksdb.DB("slavedb.db", rocksdb.Options(create_if_missing=True))
         self.queue = Queue.Queue()
 
     def replicate(db_action):
