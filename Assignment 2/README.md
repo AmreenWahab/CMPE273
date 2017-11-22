@@ -1,6 +1,7 @@
 ## Requirements
 
-Implement a RocksDB replication in Python using the design from this C++ replicator.  (Links to an external site.)Links to an external site. Differences form the replicator are:
+Implement a RocksDB replication in Python using the design from this [C++ replicator.](https://medium.com/@Pinterest_Engineering/open-sourcing-rocksplicator-a-real-time-rocksdb-data-replicator-558cd3847a9d)   
+Differences form the replicator are:
 
 Use GRPC Python server instead of Thrift server.
 Explore GRPC sync, async, and streaming.
