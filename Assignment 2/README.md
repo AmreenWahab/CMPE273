@@ -12,7 +12,11 @@ python master.py
 ## Client - client.py
 python client.py
 
-Expected Output on Client
+def foo():
+    if not bar:
+        return True
+        
+**Expected Output on Client**
 
 ##PUT Request 1 :  key = a   value = foo  
 ##PUT Response: key = avalue = foo 
@@ -24,7 +28,7 @@ Expected Output on Client
 ## Slave - slave.py 
 python slave.py
 
-Expected Output on Slave
+**Expected Output on Slave**
 
 Put a:foo to slave db 
 Successfully added data to slavedb 
