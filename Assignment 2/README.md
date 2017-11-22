@@ -1,26 +1,26 @@
-Requirements
+## Requirements
 
 Implement a RocksDB replication in Python using the design from this C++ replicator.  (Links to an external site.)Links to an external site. Differences form the replicator are:
 
 Use GRPC Python server instead of Thrift server.
 Explore GRPC sync, async, and streaming.
 
-# Server - master.py
+## Server - master.py
 python master.py
 
-# Client - client.py
+## Client - client.py
 python client.py
 
 Expected Output on Client
 
-## PUT Request 1 :  key = a   value = foo 
-## PUT Response: key = avalue = foo
-## PUT Request 2 :  key = b   value = bar 
-## PUT Response: key = bvalue = bar
-## DELETE Request  1: 
-## DELETE Response: key deleted = a value deleted = foo
+##PUT Request 1 :  key = a   value = foo 
+##PUT Response: key = avalue = foo
+##PUT Request 2 :  key = b   value = bar 
+##PUT Response: key = bvalue = bar
+##DELETE Request  1: 
+##DELETE Response: key deleted = a value deleted = foo
 
-# Slave - slave.py 
+## Slave - slave.py 
 python slave.py
 
 Expected Output on Slave
