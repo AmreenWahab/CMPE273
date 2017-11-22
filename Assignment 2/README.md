@@ -16,21 +16,21 @@ python client.py
 ```
         
 **Expected Output on Client**
-
+```sh
 ##PUT Request 1 :  key = a   value = foo  
 ##PUT Response: key = avalue = foo 
 ##PUT Request 2 :  key = b   value = bar  
 ##PUT Response: key = bvalue = bar 
 ##DELETE Request  1:  
 ##DELETE Response: key deleted = a value deleted = foo
-
+```
 ## Slave - slave.py 
 ```sh
 python slave.py
 ```
 **Expected Output on Slave**
-
-Put a:foo to slave db 
+```sh
+Put a:foo to slave db
 Successfully added data to slavedb 
 Key in slave db : a     Value in slavedb : foo
 
@@ -40,4 +40,4 @@ Key in slave db : b     Value in slavedb : bar
 
 Delete a from slave db
 Successfully deleted
-
+```
