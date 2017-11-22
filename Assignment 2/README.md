@@ -7,14 +7,13 @@ Use GRPC Python server instead of Thrift server.
 Explore GRPC sync, async, and streaming.
 
 ## Server - master.py
+```sh
 python master.py
-
+```
 ## Client - client.py
+```sh
 python client.py
-
-def foo():
-    if not bar:
-        return True
+```
         
 **Expected Output on Client**
 
@@ -26,8 +25,9 @@ def foo():
 ##DELETE Response: key deleted = a value deleted = foo
 
 ## Slave - slave.py 
+```sh
 python slave.py
-
+```
 **Expected Output on Slave**
 
 Put a:foo to slave db 
