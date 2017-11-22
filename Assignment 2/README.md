@@ -27,11 +27,11 @@ python slave.py
 Expected Output on Slave
 
 Put a:foo to slave db
-Successfulyy added data to slavedb
+Successfully added data to slavedb
 Key in slave db : a     Value in slavedb : foo
 
 Put b:bar to slave db
-Successfulyy added data to slavedb
+Successfully added data to slavedb
 Key in slave db : b     Value in slavedb : bar
 
 Delete a from slave db
