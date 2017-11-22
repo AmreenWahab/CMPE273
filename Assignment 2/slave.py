@@ -28,15 +28,12 @@ class Slave():
                 print("# Put {} : {} to slave db".format(a.key, a.value))
                 slavedb.put(a.key, a.value)
                 print ("# Successfulyy added data to slavedb")
-                #confirmation = self.stub.confirm(replicator_pb2.Confirmation())
                 print ("# Key in slave db : "+a.key.decode()+"     Value in slavedb : " + slavedb.get(a.key.decode()))
 
             elif a.action == 'delete':
                 print ("# Delete {} from slave db".format(a.key))
                 slavedb.delete(a.key)
                 print ("# Successfully deleted")
-                #confirmation = self.stub.confirm(replicator_pb2.Confirmation())
-                #print (slavedb.get(a.key.decode()))
     
 if __name__ == "__main__":
     slave = Slave()
