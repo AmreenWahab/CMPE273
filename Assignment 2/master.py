@@ -21,11 +21,13 @@ class ReplicatorServicer(replicator_pb2.ReplicatorServicer):
 
     def replicate(db_action):
         #decorator to replicate db operations
-        def wrapper(self, request, context):        
+        def wrapper(self, request, context): 
+            #delete request contains only key , so fetch value from db to meet SlaveResponse format
             if(db_action.__name__=="delete"):
                 value = (self.db.get(request.key.encode()))
                 action = replicator_pb2.SlaveResponse(action = db_action.__name__, key=request.key.encode(), value=value)
             else:
+                #put request contains both key and value which encoded to be put into db
                 action = replicator_pb2.SlaveResponse(action = db_action.__name__, key=request.key.encode(), value=request.value.encode())
             #add db operations to a queue in the form of a response
             self.queue.put(action)
@@ -38,18 +40,17 @@ class ReplicatorServicer(replicator_pb2.ReplicatorServicer):
         slave connects with master and master sends db_actions from queue to slave
         busy-wait loop
         '''
-
+        #add counter to keep track of requests
         counter = 1 
         print ("Slave Connected")
         while True:
             while not self.queue.empty():
                     #send each request to slave from the operations queue
                     print("Replicating request :  "+ str(counter) +"  to slave")
+                    #increment counter with each request replicated at slave side
                     counter = counter + 1
                     yield self.queue.get() 
                     
-
-
 
     @replicate
     def put(self, request, context):
