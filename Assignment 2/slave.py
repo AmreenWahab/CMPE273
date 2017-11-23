@@ -6,7 +6,7 @@
 import grpc
 import replicator_pb2
 import argparse
-import rocksdb
+import rocksdb 
 
 PORT = 3000
 
@@ -21,20 +21,30 @@ class Slave():
     def run(self):
         
         action = self.stub.slaveConnector(replicator_pb2.SlaveRequest())
-        
-
         for a in action:
             if a.action == 'put':
                 print("# Put {} : {} to slave db".format(a.key, a.value))
-                slavedb.put(a.key, a.value)
+                #inserting data into slave db
+                slavedb.put(a.key.encode(), a.value.encode())
                 print ("# Successfulyy added data to slavedb")
-                print ("# Key in slave db : "+a.key.decode()+"     Value in slavedb : " + slavedb.get(a.key.decode()))
+                
+                #fetch value from slave db to check
+                v = (slavedb.get(a.key.encode())).decode()
+                print ("# Key in slave db : "+a.key+"     Value in slavedb : " + v)
+                print("")
 
             elif a.action == 'delete':
                 print ("# Delete {} from slave db".format(a.key))
-                slavedb.delete(a.key)
+                #deleting data from slave db
+                slavedb.delete(a.key.encode())
                 print ("# Successfully deleted")
+                print("")
+
     
 if __name__ == "__main__":
-    slave = Slave()
-    slave.run()
+        parser = argparse.ArgumentParser()
+        parser.add_argument("host", help="ip")
+        args = parser.parse_args()
+        print("Slave is connecting to Server at {} : {}...".format(args.host, PORT))
+        slave = Slave(host=args.host)
+        slave.run()
