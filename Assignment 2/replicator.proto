@@ -10,7 +10,7 @@ message Response {
     string value = 2;
 }
 
-message DeleteRequest {
+message GetAndDeleteRequest {
     string key = 1;
 }
 
@@ -23,14 +23,11 @@ message SlaveResponse {
 message SlaveRequest {  
 }
 
-message Confirmation{
-
-}
 
 service Replicator {
 
    rpc slaveConnector(SlaveRequest) returns (stream SlaveResponse) {}
    rpc put(Request) returns (Response) {}
-   rpc delete(DeleteRequest) returns (Response) {}
-   rpc confirm(Confirmation) returns (Confirmation) {}
+   rpc delete(GetAndDeleteRequest) returns (Response) {}
+   rpc get(GetAndDeleteRequest) returns (Response) {}
 }
