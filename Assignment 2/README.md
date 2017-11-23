@@ -6,36 +6,56 @@ Differences form the replicator are:
 Use GRPC Python server instead of Thrift server.
 Explore GRPC sync, async, and streaming.
 
+## Create stub for client and server
+```sh
+docker run -it --rm --name grpc-tools -v "$PWD":/usr/src/myapp -w /usr/src/myapp ubuntu-python3.6-rocksdb-grpc:1.0 python3.6 -m grpc.tools.protoc -I. --python_out=. --grpc_python_out=. replicator.proto
+```
 ## Server - master.py
 ```sh
-python master.py
+docker run -p 3000:3000 -it --rm --name lab1-server -v "$PWD":/usr/src/myapp -w /usr/src/myapp ubuntu-python3.6-rocksdb-grpc:1.0 python3.6 master.py
 ```
 ## Client - client.py
 ```sh
-python client.py
+docker run -it --rm --name lab1-client -v "$PWD":/usr/src/myapp -w /usr/src/myapp ubuntu-python3.6-rocksdb-grpc:1.0 python3.6 client.py 192.168.0.1
 ```
         
 **Expected Output on Client**
 ```sh
-# PUT Request 1 :  key = a   value = foo  
-# PUT Response: key = avalue = foo 
-# PUT Request 2 :  key = b   value = bar  
-# PUT Response: key = bvalue = bar 
-# DELETE Request  1:  
-# DELETE Response: key deleted = a value deleted = foo
+Client is connecting to Server at 192.168.0.1:3000...
+ 
+---------------------------------------------------------------
+
+# PUT Request 1 :  key = a   value = foo 
+# PUT Response 1 : key = avalue = foo
+ 
+---------------------------------------------------------------
+
+# PUT Request 2 :  key = b   value = bar 
+# PUT Response 2 : key = b   value = bar
+
+---------------------------------------------------------------
+
+# DELETE Request  1 :  key =  a
+# DELETE Response 1 : key deleted = a  value deleted = foo
+
+---------------------------------------------------------------
+
+# GET Request 1 : key = b
+# GET Response 1 : key  = b  value  = bar
 ```
 ## Slave - slave.py 
 ```sh
-python slave.py
+docker run -it --rm --name lab1-client -v "$PWD":/usr/src/myapp -w /usr/src/myapp ubuntu-python3.6-rocksdb-grpc:1.0 python3.6 slave.py 192.168.0.1
 ```
 **Expected Output on Slave**
 ```sh
-# Put a:foo to slave db
-# Successfully added data to slavedb 
+Slave is connecting to Server at 192.168.0.1 : 3000...
+# Put a : foo to slave db
+# Successfulyy added data to slavedb
 # Key in slave db : a     Value in slavedb : foo
 
-# Put b:bar to slave db 
-# Successfully added data to slavedb 
+# Put b : bar to slave db
+# Successfulyy added data to slavedb
 # Key in slave db : b     Value in slavedb : bar
 
 # Delete a from slave db
